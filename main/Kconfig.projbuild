@@ -1,0 +1,36 @@
+menu "Example Configuration"
+
+    config BROKER_URL
+        string "Broker URL"
+        default "mqtt://mqtt.eclipseprojects.io"
+        help
+            URL of the broker to connect to
+
+    config BROKER_URL_FROM_STDIN
+        bool
+        default y if BROKER_URL = "FROM_STDIN"
+
+    choice IBEACON_MODE
+        bool "iBeacon Mode"
+        default IBEACON_SENDER
+        help
+            Select the iBeacon Mode.
+    
+        config IBEACON_SENDER
+            bool "iBeacon Sender Mode"
+            help
+                Select the iBeacon Sender Mode.
+    
+        config IBEACON_RECEIVER
+            bool "iBeacon Receiver Mode"
+            help
+                Select the iBeacon Receiver Mode.
+    
+     endchoice
+    
+    config IBEACON_MODE
+        int
+        default 0 if IBEACON_SENDER
+        default 1 if IBEACON_RECEIVER
+
+endmenu
